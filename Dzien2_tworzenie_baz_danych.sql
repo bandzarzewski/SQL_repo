@@ -62,7 +62,6 @@ INSERT INTO Orders(IdBook,IdCustomer,OrderDate,Status) VALUES
 
 /*
 SELECT*FROM Orders;
-
 -- 1.Ułóż książki alfabetycznie po tytule
 SELECT*FROM Books ORDER BY Title ASC;
 -- 2.Znajdź najdroższą książkę w bazie
@@ -76,8 +75,9 @@ SELECT * FROM Books WHERE Title LIKE "%Windows%";
 -- 6.Wyświetl zamówienia odnajwcześniej dokonanego do najpóźniej
 SELECT * FROM Orders ORDER BY OrderDate ASC; -- lub DESC 
 */
--- SELECT C.CustomerName, C.CustomerSurname,O.IdOrders,O.OrderDate FROM Orders AS O,Customer AS C WHERE O.IdCustomer=C.IdCustomer;
--- SELECT C.CustomerName, C.CustomerSurname, O.IdBook FROM Customer AS C, Orders AS O WHERE O.IdBook = 2 AND C.IdCustomer = O.IdCustomer;
--- SELECT B.AuthorName, B.AuthorSurname, B.Title, C.CustomerName, C.CustomerSurname FROM Books AS B, Orders AS O ,Customer AS C WHERE C.CustomerName="Jan" AND C.CustomerSurname="Nowak" AND C.IdCustomer=O.IdCustomer AND B.IdBook=O.IdBook;
-SELECT  C.CustomerName, C.CustomerSurname, O.IdOrders,O.OrderDate,O.Status,B.Title FROM Orders AS O,Customer AS C,B AS Books WHERE 
-
+ SELECT C.CustomerName, C.CustomerSurname,O.IdOrders,O.OrderDate FROM Orders AS O,Customer AS C WHERE O.IdCustomer=C.IdCustomer;
+ SELECT C.CustomerName, C.CustomerSurname, O.IdBook FROM Customer AS C, Orders AS O WHERE O.IdBook = 2 AND C.IdCustomer = O.IdCustomer;
+ SELECT B.AuthorName, B.AuthorSurname, B.Title, C.CustomerName, C.CustomerSurname FROM Books AS B, Orders AS O ,Customer AS C WHERE C.CustomerName="Jan" AND C.CustomerSurname="Nowak" AND C.IdCustomer=O.IdCustomer AND B.IdBook=O.IdBook;
+ SELECT C.CustomerName, C.CustomerSurname, O.IdOrders,O.Status, O.OrderDate,
+ B.Title FROM Customer AS C,Orders AS O, Books AS B WHERE C.CustomerSurname="Rutkowski" 
+ AND O.IdCustomer=O.IdCustomer AND O.IdBook=B.IdBook ORDER BY O.OrderDate ASC;
