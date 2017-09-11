@@ -1,1 +1,11 @@
-SELECT * FROM quiz.questions;
+CREATE DATABASE Bookstore;
+USE Bookstore;
+CREATE TABLE Customer(
+`Idbook` int NOT NULL AUTO_INCREMENT,
+`AuthorName` TEXT CHARACTER SET utf8 COLLATE utf8_polish_ci NOT NULL,
+`AuthorSurname` TEXT CHARACTER SET utf8 COLLATE utf8_polish_ci NOT NULL,
+`Title` TEXT CHARACTER SET utf8 COLLATE utf8_polish_ci NOT NULL,
+`price` FLOAT,
+PRIMARY KEY(`Idbook`)
+)DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1;;
+
