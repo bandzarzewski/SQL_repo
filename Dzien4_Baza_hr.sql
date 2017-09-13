@@ -93,4 +93,40 @@ FROM
         JOIN
     departments AS d USING (department_id)
         JOIN
-    employees AS e USING (employee_id) WHERE jh.start_date >="1993-01-01" AND jh.start_date <= "1997-08-31";
+    employees AS e USING (employee_id)
+WHERE
+    jh.start_date >= '1993-01-01'
+        AND jh.start_date <= '1997-08-31';
+    
+ # 14. 
+ SELECT 
+    c.country_name, l.city, d.department_name
+FROM
+    countries AS c
+        JOIN
+    locations AS l USING (country_id)
+        JOIN
+    departments AS d USING (location_id);
+    
+# 15
+ SELECT d.department_name, m.first_name, m.last_name  FROM departments AS d JOIN employees m ON(d.manager_id=m.employee_id);
+
+# 16.
+ SELECT 
+    country_name,
+    city,
+    COUNT(department_id) AS 'Ilość departamentów'
+FROM
+    countries
+        JOIN
+    locations USING (country_id)
+        JOIN
+    departments USING (location_id)
+WHERE
+    department_id IN (SELECT 
+            department_id
+        FROM
+            employees
+        GROUP BY department_id
+        HAVING COUNT(department_id) >= 2)
+GROUP BY country_name , city;
