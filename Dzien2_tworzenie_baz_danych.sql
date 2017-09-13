@@ -76,9 +76,7 @@ SELECT * FROM Books WHERE Title LIKE "%Windows%";
 -- 6.Wyświetl zamówienia odnajwcześniej dokonanego do najpóźniej
 SELECT * FROM Orders ORDER BY OrderDate ASC; -- lub DESC 
 */
-<<<<<<< HEAD
-SELECT 
-=======
+
 /*SELECT 
 >>>>>>> 07da5a7b3f52c016c551b71d4e54979795f239b1
     C.CustomerName, C.CustomerSurname, O.IdOrders, O.OrderDate
@@ -113,10 +111,8 @@ WHERE
         AND C.IdCustomer = O.IdCustomer
         AND B.IdBook = O.IdBook;
  
-=======
 -- SELECT C.CustomerName, C.CustomerSurname, O.IdBook FROM Customer AS C, Orders AS O WHERE O.IdBook = 2 AND C.IdCustomer = O.IdCustomer;
 -- SELECT B.AuthorName, B.AuthorSurname, B.Title, C.CustomerName, C.CustomerSurname FROM Books AS B, Orders AS O ,Customer AS C WHERE C.CustomerName="Jan" AND C.CustomerSurname="Nowak" AND C.IdCustomer=O.IdCustomer AND B.IdBook=O.IdBook;
->>>>>>> 07da5a7b3f52c016c551b71d4e54979795f239b1
  SELECT 
     C.CustomerName,
     C.CustomerSurname,
@@ -133,9 +129,7 @@ WHERE
         AND O.IdCustomer = O.IdCustomer
         AND O.IdBook = B.IdBook
 ORDER BY O.OrderDate ASC;
-<<<<<<< HEAD
-=======
+
 
 SELECT * FROM Customer WHERE IdCustomer=4;
 */
->>>>>>> 07da5a7b3f52c016c551b71d4e54979795f239b1
