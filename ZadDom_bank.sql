@@ -25,6 +25,5 @@ FROM
 
 # 8. Pokaż wszystkich pracowników, których nazwiska zaczynają się na M. Wyświetl tylko Imię i Nazwisko pracownika. 
 SELECT imie, nazwisko FROM pracownicy WHERE nazwisko LIKE 'M%';
-# 9. 
-
-
+# 9. Pokaż wszystkich pracowników, którzy pracują w dziale logistyki lub informatyki. W wyniku wyświetl tylko imię i nazwisko pracownika
+SELECT p.imie,p.nazwisko, d.nazwa FROM pracownicy AS p , dzialy AS d WHERE p.ID_dzialu=d.ID_dzialu AND d.nazwa='Informatyka' OR d.nazwa='Logistyka' ;

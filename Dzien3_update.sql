@@ -21,4 +21,3 @@ SELECT * FROM Orders;
 
 
 INSERT INTO Orders VALUES(NULL,7,3,'2017-09-12',"Oczekiwanie");  
-INSERT INTO Books VALUES(NULL
