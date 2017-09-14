@@ -27,3 +27,17 @@ FROM
 SELECT imie, nazwisko FROM pracownicy WHERE nazwisko LIKE 'M%';
 # 9. Pokaż wszystkich pracowników, którzy pracują w dziale logistyki lub informatyki. W wyniku wyświetl tylko imię i nazwisko pracownika
 SELECT p.imie,p.nazwisko, d.nazwa FROM pracownicy AS p , dzialy AS d WHERE p.ID_dzialu=d.ID_dzialu AND d.nazwa='Informatyka' OR d.nazwa='Logistyka' ;
+# 10. Pokaż wszystkich pracowników których bezpośrednim przełożonym jest Leopold Banko. 
+# Wyniki przedstaw w konwencji imię, nazwisko w jednej kolumnie i imię i nazwisko przełożonego w drugiej kolumnie.
+
+SELECT 
+    CONCAT(p.imie, ' ', p.nazwisko) AS 'Pracownik ',
+    CONCAT(m.imie, ' ', m.nazwisko) AS 'Szef'
+FROM
+    pracownicy AS p
+        JOIN
+    pracownicy AS m ON p.ID_pracownika = m.ID_przelozonego
+WHERE
+   # m.ID_pracownika=150;
+    m.nazwisko = 'Banko';  
+
