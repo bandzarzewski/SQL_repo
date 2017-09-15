@@ -99,6 +99,17 @@ SET Message =
 END
 |
 
+
+delimiter |
+CREATE TRIGGER dodajNowegoLekarza
+AFTER INSERT ON lekarz
+FOR EACH ROW BEGIN 
+INSERT INTO Activity
+SET Message = 
+(SELECT(CONCAT("Dodano nowego lekarza"," ", NEW.imie," ", NEW.nazwisko," ",NEW.specializacja," ",NEW.telefon)));
+END
+|
+
 INSERT INTO pacjent SET
 imie="Jan",
 nazwisko="Kowalski",
@@ -107,3 +118,5 @@ telefon=324585123,
 ulica="Parkowa",
 miasto="Wrocław";
 # SELECT * FROM pacjent;
+
+
