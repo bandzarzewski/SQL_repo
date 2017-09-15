@@ -79,17 +79,6 @@ FROM
         LEFT JOIN
     employees m ON e.manager_id = m.employee_id;  
 
-#9. Wypisz	imię,	nazwisko	numer	wydziału	i	jego	nazwę	dla	każdego	pracownika,	
-# który	ma	wydział.	W	przypadku "bezwydziałowych”	pracowników	pola	wydziałów	powinny	
-# zostać	puste
-SELECT e.first_name,
-    e.last_name,
-    d.department_id,
-	d.department_name
-FROM 
-  employees AS e
-  LEFT JOIN 
-  departments AS d  USING(department_id);
 #13 USING ! // sam robi łączenia 
 SELECT 
     j.job_title,
@@ -141,3 +130,4 @@ WHERE
         GROUP BY department_id
         HAVING COUNT(department_id) >= 2)
 GROUP BY country_name , city;
+

@@ -1,7 +1,7 @@
 DROP DATABASE IF EXISTS `Przychodnia zdrowia`;
 USE `Przychodnia zdrowia`;
 
-CREATE DATABASE `Przychodnia zdrowia`;
+CREATE DATABASE `Przychodnia_zdrowia`;
 DROP TABLE IF EXISTS `pacjent`;
 CREATE TABLE `pacjent`(
 `Id_pacjent` int(10) NOT NULL AUTO_INCREMENT,
@@ -10,9 +10,9 @@ CREATE TABLE `pacjent`(
 `pesel` VARCHAR(20) CHARACTER SET utf8 COLLATE utf8_polish_ci NOT NULL,
 `telefon` int(10)  NOT NULL,
 `ulica` VARCHAR (50) CHARACTER SET utf8 COLLATE utf8_polish_ci NOT NULL,
-`miasto` VARCHAR (50) CHARACTER SET utf8 COLLATE utf8_polish_ci NOT NULL
-PRIMARY KEY(`Id_pacjent`)
-)DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1;
+`miasto` VARCHAR (50) CHARACTER SET utf8 COLLATE utf8_polish_ci NOT NULL,
+PRIMARY KEY (`Id_pacjent`))
+DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1;
 
 DROP TABLE IF EXISTS `lekarz`;
 CREATE TABLE `lekarz`(
@@ -22,7 +22,6 @@ CREATE TABLE `lekarz`(
 `specializacja` VARCHAR(40) CHARACTER SET utf8 COLLATE utf8_polish_ci NOT NULL,
 `telefon` int(10)  NOT NULL,
 PRIMARY KEY(`Id_lekarz`)
-
 )DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1;
 
 DROP TABLE IF EXISTS `godzWizytLekarza`;
@@ -34,34 +33,35 @@ CREATE TABLE `godzWizytLekarza`(
 `Dzien_Tygodnia` Date NOT NULL,
 `Godz_wizyty`TIME  NOT NULL,
 PRIMARY KEY(`Id_godzWizytLekarza`),
-FOREIGN KEY(`Id_godzPrzyjec`) REFERENCES godz_przyjec (Id_godzPrzyjec),
-FOREIGN KEY(`Id_pacjent`) REFERENCES pacjent (Id_pacjent),
-FOREIGN KEY(`Id_lekarz`) REFERENCES lekarz(Id_lekarz)) 
+CONSTRAINT godzWizytLekarza_godz_przyjec_Id_godzPrzyjec FOREIGN KEY(`Id_godzPrzyjec`) REFERENCES godz_przyjec (Id_godzPrzyjec),
+CONSTRAINT godzWizytLekarza_godz_pacjent_Id_pacjent  FOREIGN KEY(`Id_pacjent`) REFERENCES pacjent (Id_pacjent),
+CONSTRAINT godzWizytLekarza_lekarz_Id_lekarz FOREIGN KEY (`Id_lekarz`) REFERENCES lekarz(Id_lekarz)) 
 DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1;
 
-DROP TABLE IF EXISTS `umowioneWizyty`;
+# DROP TABLE IF EXISTS `umowioneWizyty`;
 CREATE TABLE `umowioneWizyty`(
 `Id_wizyty` int(10) NOT NULL AUTO_INCREMENT,
 `Id_lekarz` int(10),
 `Id_pacjent` int(10),
 `Date` Date NOT NULL ,
 PRIMARY KEY(`Id_wizyty`),
-FOREIGN KEY(`Id_pacjent`) REFERENCES pacjent (Id_pacjent),
-FOREIGN KEY(`Id_lekarz`) REFERENCES lekarz(Id_lekarz)) 
+CONSTRAINT umowioneWizyty_pacjent_Id_pacjent FOREIGN KEY(`Id_pacjent`) REFERENCES pacjent (Id_pacjent),
+CONSTRAINT umowioneWizyty_lekarz_Id_lekarz FOREIGN KEY(`Id_lekarz`) REFERENCES lekarz(Id_lekarz)) 
 DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1;
 
-DROP TABLE IF EXISTS `recepta`;
+# DROP TABLE IF EXISTS `recepta`;
 CREATE TABLE `recepta`(
 `Id_recepta`int(10) NOT NULL AUTO_INCREMENT,  
 `Id_lekarz` int(10),
 `Id_pacjent` int(10),
 `Nazwa_Leku` Text CHARACTER SET utf8 COLLATE utf8_polish_ci NOT NULL, 
 `Dawkowanie` Text CHARACTER SET utf8 COLLATE utf8_polish_ci NOT NULL, 
-FOREIGN KEY(`Id_pacjent`) REFERENCES pacjent (Id_pacjent),
-FOREIGN KEY(`Id_lekarz`) REFERENCES lekarz(Id_lekarz)
+CONSTRAINT recepta_pacjent_Id_pacjent FOREIGN KEY(`Id_pacjent`) REFERENCES pacjent (Id_pacjent),
+CONSTRAINT recepta_lekarz_Id_lekarz FOREIGN KEY(`Id_lekarz`) REFERENCES lekarz(Id_lekarz),
+PRIMARY KEY(`Id_recepta`)
 )DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1;
 
-DROP TABLE IF EXISTS `godz_przyjec`;
+# DROP TABLE IF EXISTS `godz_przyjec`;
 CREATE TABLE `godz_przyjec`(
 `Id_godzPrzyjec`int(10) NOT NULL AUTO_INCREMENT, 
 `Id_lekarz` int(10),
@@ -76,8 +76,9 @@ CREATE TABLE `godz_przyjec`(
 `Czwartek_End` Time NOT NULL,
 `Piatek_Start` Time NOT NULL,
 `Piatek_End` Time NOT NULL,
-FOREIGN KEY(`Id_pacjent`) REFERENCES pacjent (Id_pacjent),
-FOREIGN KEY(`Id_lekarz`) REFERENCES lekarz(Id_lekarz)
+CONSTRAINT godz_przyjec_pacjent_Id_pacjent FOREIGN KEY(`Id_pacjent`) REFERENCES pacjent (Id_pacjent),
+CONSTRAINT godz_przyjec_lekarz_Id_lekarz FOREIGN KEY(`Id_lekarz`) REFERENCES lekarz(Id_lekarz),
+PRIMARY KEY(`Id_godzPrzyjec`)
 )DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1;
 
 DROP TABLE IF EXISTS Activity;
@@ -87,5 +88,35 @@ CREATE TABLE Activity(
 PRIMARY KEY(`Idactivity`))
 DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1;
 
+DROP TRIGGER dodajNowegoPacienta  ;
+delimiter |
+CREATE TRIGGER dodajNowegoPacienta 
+AFTER INSERT ON pacjent
+FOR EACH ROW BEGIN
+INSERT INTO Activity 
+SET Message = 
+(SELECT(CONCAT("Dodano nowego pacienta"," ", NEW.imie," ", NEW.nazwisko," ", NEW.telefon)));
+END
+|
+
+
+delimiter |
+CREATE TRIGGER dodajNowegoLekarza
+AFTER INSERT ON lekarz
+FOR EACH ROW BEGIN 
+INSERT INTO Activity
+SET Message = 
+(SELECT(CONCAT("Dodano nowego lekarza"," ", NEW.imie," ", NEW.nazwisko," ",NEW.specializacja," ",NEW.telefon)));
+END
+|
+
+INSERT INTO pacjent SET
+imie="Jan",
+nazwisko="Kowalski",
+pesel=89231312568,
+telefon=324585123,
+ulica="Parkowa",
+miasto="Wrocław";
+# SELECT * FROM pacjent;
 
 

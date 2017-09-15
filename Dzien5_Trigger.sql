@@ -19,7 +19,7 @@ END
 
 
 DROP TRIGGER dodanoNowySamochod ;
-|
+delimiter |
 CREATE TRIGGER dodanoNowySamochod
 AFTER INSERT ON auta 
 FOR EACH ROW BEGIN
@@ -32,8 +32,8 @@ end
 /*
 INSERT INTO wypozyczenia 
 SET idklienta = 2, idauta=2,datawyp="2017-09-14", 
-datazwrotu="2017-09-15",naleznosc=101;
-*/
+datazwrotu="2017-09-15",naleznosc=101;*/
+
 INSERT INTO auta SET 
 marka="Audi",
 model="A4",
@@ -41,3 +41,4 @@ przebieg=130000,
 rocznik=2016,
 kolor="srebny",
 ubezpieczenie=1;
+
