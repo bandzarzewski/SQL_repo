@@ -60,7 +60,7 @@ INSERT INTO Orders(IdBook,IdCustomer,OrderDate,Status) VALUES
 (9, 2, "2017-12-28", "Oczekiwane");
 
 
-/*
+
 SELECT*FROM Orders;
 
 -- 1.Ułóż książki alfabetycznie po tytule
@@ -75,18 +75,17 @@ SELECT * FROM Customer WHERE CustomerSurname="Pszczoła";
 SELECT * FROM Books WHERE Title LIKE "%Windows%";
 -- 6.Wyświetl zamówienia odnajwcześniej dokonanego do najpóźniej
 SELECT * FROM Orders ORDER BY OrderDate ASC; -- lub DESC 
-*/
 
-/*SELECT 
->>>>>>> 07da5a7b3f52c016c551b71d4e54979795f239b1
+
+SELECT 
     C.CustomerName, C.CustomerSurname, O.IdOrders, O.OrderDate
 FROM
     Orders AS O,
     Customer AS C
 WHERE
     O.IdCustomer = C.IdCustomer;
-<<<<<<< HEAD
- SELECT 
+
+SELECT 
     C.CustomerName, C.CustomerSurname, O.IdBook
 FROM
     Customer AS C,
@@ -132,4 +131,3 @@ ORDER BY O.OrderDate ASC;
 
 
 SELECT * FROM Customer WHERE IdCustomer=4;
-*/

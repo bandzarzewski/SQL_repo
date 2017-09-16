@@ -2,6 +2,7 @@ DROP DATABASE IF EXISTS `Przychodnia zdrowia`;
 USE `Przychodnia zdrowia`;
 
 CREATE DATABASE `Przychodnia_zdrowia`;
+
 DROP TABLE IF EXISTS `pacjent`;
 CREATE TABLE `pacjent`(
 `Id_pacjent` int(10) NOT NULL AUTO_INCREMENT,

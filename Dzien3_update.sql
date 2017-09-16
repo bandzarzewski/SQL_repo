@@ -21,7 +21,5 @@ SELECT * FROM Orders;
 
 
 INSERT INTO Orders VALUES(NULL,7,3,'2017-09-12',"Oczekiwanie");  
-<<<<<<< HEAD
-=======
+
 INSERT INTO Books(AuthorName, AuthorSurname,Title) VALUES("","Grębosz","SymfoniaC++");
->>>>>>> 513b12021c9ac52803c694f6a8241bbd256ef005
