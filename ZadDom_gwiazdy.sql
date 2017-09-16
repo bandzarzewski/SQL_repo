@@ -43,6 +43,8 @@ SELECT Tytul , nazwaStudia, wyprodukowano FROM film WHERE wyprodukowano NOT BETW
 
 
 #3. Podaj wszystkie tytuły filmów i daty urodzenia grających w filmach aktorów.
+
+
 #4. Wypisz takich aktorów, którzy nie zagrali w „Przeminęło z wiatrem”.
 #5. Wypisz datę premiery oraz datę urodzenia dyrektora produkcji wszystkich filmów.
 #6. Dla każdego gatunku filmu podaj średni wiek aktorów w nim występujących.
