@@ -9,8 +9,9 @@ SELECT Tytul,Czas,wyprodukowano FROM film WHERE wyprodukowano BETWEEN '2010-01-0
 
 # 4. Którzy aktorzy mężczyźni grali rolę w „Przeminęło z wiatrem”?
 
-SELECT g.ImieGwiazdy, g.NazwiskoGwiazdy,a.Plec FROM gwiazdyw g JOIN aktor a ON g.TytulFilmu=a.Imie; 
---                     || SPRAWDZIĆ TO JESZCZE RAZ !!!
+--                      || SPRAWDZIĆ TO JESZCZE RAZ !!!
+
+SELECT aktor.Imie ,film.Tytul  FROM aktor,film WHERE aktor.Plec = 'm' AND film.Tytul = "Przeminelo z wiatrem" ;
 
 
 # SELECT  a.Imie,a.Nazwisko,f.TytulFilmu FROM aktor AS a, gwiazdyw AS f WHERE f.TytulFilmu="Przeminelo z wiatrem" AND a.Plec="m";

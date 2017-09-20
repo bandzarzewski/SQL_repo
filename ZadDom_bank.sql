@@ -13,20 +13,27 @@ SELECT imie,nazwisko, pensja+dodatki FROM pracownicy;
 SELECT imie,nazwisko, (pensja+dodatki)AS'wynagrodzenie całkowite' FROM  pracownicy;
 #7. Oblicz ile dany pracownik zarabia dziennie, tygodniowo, miesięcznie i rocznie. Wynik posortuj malejąco. 
 # Dane wyświetl w konwencji: Imię i Nazwisko, Dniówka, Tygodniówka, Pensja miesięczna, Pensja roczna.
+
+SELECT CONCAT(P.imie, " ", P.nazwisko) AS 'Imię i Nazwisko', 
+CAST(ROUND(P.pensja/23,2)AS DECIMAL(6,2)) AS 'Dniówka',
+CAST(ROUND(P.pensja/23*5,2)AS DECIMAL(6,2)) AS 'Tygodniówka',
+P.pensja AS 'Pensja miesięczna', P.pensja*12 AS 'Pensja roczna'
+FROM Pracownicy P Order by  'Pensja miesięczna' DESC;
+
 SELECT 
-    imie,
-    nazwisko,
+    CONCAT(imie," ",
+    nazwisko)
     (pensja * 12) AS 'Roczna pensja',
     pensja AS 'Miesieczna pensja',
-    ROUND(pensja / 4, 2) AS 'Tygodniowa pensja',
-    ROUND(pensja / 30, 2) AS 'Dzienne zarobki'
+    ROUND(pensja / 23*4, 2) AS 'Tygodniowa pensja',
+    ROUND(pensja / 23, 2) AS 'Dzienne zarobki'
 FROM
-    pracownicy;
+    pracownicy ORDER BY 'Miesieczna pensja' DESC;
 
 # 8. Pokaż wszystkich pracowników, których nazwiska zaczynają się na M. Wyświetl tylko Imię i Nazwisko pracownika. 
 SELECT imie, nazwisko FROM pracownicy WHERE nazwisko LIKE 'M%';
 # 9. Pokaż wszystkich pracowników, którzy pracują w dziale logistyki lub informatyki. W wyniku wyświetl tylko imię i nazwisko pracownika
-SELECT p.imie,p.nazwisko, d.nazwa FROM pracownicy AS p , dzialy AS d WHERE p.ID_dzialu=d.ID_dzialu AND d.nazwa='Informatyka' OR d.nazwa='Logistyka' ;
+SELECT imie,nazwisko FROM pracownicy WHERE ID_dzialu=60 OR ID_dzialu=70 ;
 # 10. Pokaż wszystkich pracowników których bezpośrednim przełożonym jest Leopold Banko. 
 # Wyniki przedstaw w konwencji imię, nazwisko w jednej kolumnie i imię i nazwisko przełożonego w drugiej kolumnie.
 
@@ -36,8 +43,8 @@ SELECT
 FROM
     pracownicy AS p
         JOIN
-    pracownicy AS m ON p.ID_pracownika = m.ID_przelozonego
-WHERE
-   # m.ID_pracownika=150;
-    m.nazwisko = 'Banko';  
+    pracownicy AS m ON m.ID_pracownika = p.ID_przelozonego
+WHERE  m.nazwisko = 'Banko';  
+    
+
 
